@@ -1,11 +1,14 @@
 package app.olauncher
 
+import android.appwidget.AppWidgetHost
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.Settings
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -18,30 +21,48 @@ import app.olauncher.helper.showToastLong
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+import android.appwidget.AppWidgetManager
+
+
+
+
+
 class MainActivity : AppCompatActivity() {
 
+
+    private lateinit var prefs: Prefs
     private lateinit var navController: NavController
+    private lateinit var viewModel: MainViewModel
+    var mAppWidgetManager: AppWidgetManager? = null
+    var mAppWidgetHost: AppWidgetHost? = null
+
+    lateinit var mainlayout: ViewGroup
 
     override fun onBackPressed() {
-        if (navController.currentDestination?.id != R.id.mainFragment)
+        if (navController.currentDestination?.id == R.id.mainFragment)
             super.onBackPressed()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val prefs = Prefs(this)
+
+        prefs = Prefs(this)
         when (prefs.themeColor) {
             Constants.THEME_MODE_LIGHT -> setTheme(R.style.LightTheme)
-            else -> setTheme(R.style.DarkTheme)
+            Constants.THEME_MODE_DARK -> setTheme(R.style.DarkTheme)
+            Constants.THEME_MODE_BLOSSOM -> setTheme(R.style.BlossomTheme)
         }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         if (prefs.firstOpen) {
             viewModel.firstOpen(true)
             prefs.firstOpen = false
         }
+
 
         initObservers(viewModel)
         viewModel.getAppList()
@@ -54,8 +75,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onStop() {
         backToHomeScreen()
+        mAppWidgetHost?.stopListening()
         super.onStop()
     }
 
