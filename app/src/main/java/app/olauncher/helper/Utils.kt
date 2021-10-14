@@ -20,6 +20,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatDelegate
 import app.olauncher.BuildConfig
 import app.olauncher.data.AppModel
 import app.olauncher.data.Prefs
