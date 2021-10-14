@@ -31,7 +31,7 @@
             style="@style/TextDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/jetbrainsmedium"
             android:format12Hour="hh:mm"
             android:layout_marginTop="42dp"
             android:textSize="@dimen/time_size" />
@@ -41,12 +41,48 @@
             style="@style/TextDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:format12Hour="EEE, dd MMM"
-            android:format24Hour="EEE, dd MMM"
+            android:fontFamily="@font/jetbrainsmedium"
+            android:format12Hour="EEEE, MMMM dd"
+            android:format24Hour="EEEE, MMMM dd"
             android:letterSpacing="0.02"
             android:textSize="@dimen/date_size" />
+
+        <!-- The name of the widget. -->
+        <TextView
+            android:id="@+id/widget_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+
+            android:textColor="#FFFFFFFF"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"
+            android:fontFamily="sans-serif-condensed"
+            android:shadowRadius="2.0"
+            android:shadowColor="#B0000000" />
+
+        <!-- The original dimensions of the widget (can't be the same text as above due to different
+             style. -->
+        <TextView
+            android:id="@+id/widget_dims"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0"
+            android:gravity="start"
+
+            android:textColor="#FFFFFFFF"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-condensed"
+            android:shadowRadius="2.0"
+            android:shadowColor="#B0000000" />
     </LinearLayout>
+
 
     <!-- Home apps-->
     <LinearLayout
@@ -59,9 +95,10 @@
         android:layout_marginEnd="24dp"
         android:orientation="vertical">
 
+
         <TextView
             android:id="@+id/homeApp1"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -73,7 +110,7 @@
 
         <TextView
             android:id="@+id/homeApp2"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -85,7 +122,7 @@
 
         <TextView
             android:id="@+id/homeApp3"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -97,7 +134,7 @@
 
         <TextView
             android:id="@+id/homeApp4"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -109,7 +146,7 @@
 
         <TextView
             android:id="@+id/homeApp5"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -121,7 +158,7 @@
 
         <TextView
             android:id="@+id/homeApp6"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -133,7 +170,7 @@
 
         <TextView
             android:id="@+id/homeApp7"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -145,7 +182,7 @@
 
         <TextView
             android:id="@+id/homeApp8"
-            style="@android:style/Widget.Holo.Button.Borderless"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"

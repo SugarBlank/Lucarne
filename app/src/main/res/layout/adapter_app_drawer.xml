@@ -14,6 +14,8 @@
         android:paddingHorizontal="24dp"
         android:paddingVertical="@dimen/app_padding_vertical"
         android:textAppearance="@style/TextLarge"
+        android:textColor="?attr/primaryColor"
+
         android:text="@string/app" />
 
     <ImageView

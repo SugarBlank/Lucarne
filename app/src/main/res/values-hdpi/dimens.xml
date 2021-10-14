@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_widget_preview_padding_left">16dp</dimen>
+    <dimen name="app_widget_preview_padding_right">16dp</dimen>
+    <dimen name="app_widget_preview_padding_top">32dp</dimen>
+    <dimen name="app_widget_preview_label_vertical_padding">8dp</dimen>
+    <dimen name="app_widget_preview_label_horizontal_padding">8dp</dimen>
     <dimen name="text_large">24sp</dimen>
     <dimen name="app_padding_vertical">8dp</dimen>
     <dimen name="home_app_padding_vertical">6dp</dimen>

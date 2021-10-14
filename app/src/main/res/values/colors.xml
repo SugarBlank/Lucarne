@@ -3,7 +3,7 @@
     <color name="colorPrimary">@android:color/white</color>
     <color name="colorPrimaryDark">@android:color/darker_gray</color>
     <color name="colorAccent">#FFEB3B</color>
-
+    <color name="widget_text_panel">#FF374248</color>
     <!--White-->
     <color name="white">#FFFFFF</color>
     <color name="whiteTrans90">#E6FFFFFF</color>
@@ -28,4 +28,15 @@
     <color name="blackInverseTrans80">#CCFFFFFF</color>
     <color name="blackInverseTrans90">#E6FFFFFF</color>
 
+    <!--Blossom-->
+    <color name="blossom">#ede6e3</color>
+    <color name="blossomTrans90">#dad3d0</color>
+    <color name="blossomTrans80">#b6a8a2</color>
+    <color name="blossomTrans50">#e6dad6</color>
+    <color name="blossomInverse">#6c605a</color>
+    <color name="blossomInverseTrans10">#ede6e3</color>
+    <color name="blossomInverseTrans25">#40938680</color>
+    <color name="blossomInverseTrans50">#8f8678</color>
+    <color name="blossomInverseTrans80">#808f8678</color>
+    <color name="blossomInverseTrans90">#908f8678</color>
 </resources>

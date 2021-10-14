@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_mainFragment_to_appListFragment"
-            app:destination="@id/appListFragment" />
+            app:destination="@id/appListFragment"
+             />
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
@@ -38,8 +39,10 @@
         android:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_appListFragment"
-            app:destination="@id/appListFragment"
-             />
+            app:destination="@id/appListFragment"/>
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@+id/mainFragment"/>
     </fragment>
 
 </navigation>

@@ -67,13 +67,30 @@
         <item name="primaryShadeDarkColor">@color/blackInverseTrans25</item>
     </style>
 
+    <style name="BlossomTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/blossomInverse</item>
+        <item name="colorPrimaryDark">@android:color/darker_gray</item>
+        <item name="colorAccent">@color/blossomInverse</item>
+
+        <item name="primaryColor">@color/blossomInverse</item>
+        <item name="primaryInverseColor">@color/blossomInverse</item>
+        <item name="primaryTextShadowColor">@color/blossomInverseTrans50</item>
+        <item name="primaryColorTrans50">@color/blossomTrans50</item>
+        <item name="primaryColorTrans80">@color/blossomTrans80</item>
+        <item name="primaryColorInverseTrans50">@color/blossomTrans80</item>
+        <item name="primaryColorInverseTrans80">@color/blossomInverseTrans80</item>
+        <item name="primaryColorInverseTrans90">@color/blossomTrans80</item>
+        <item name="primaryShadeColor">@color/blossomInverseTrans10</item>
+        <item name="primaryShadeDarkColor">@color/blossomInverseTrans25</item>
+    </style>
+
     <style name="AppSearchText" parent="Widget.AppCompat.SearchView">
         <item name="android:maxLength">20</item>
         <item name="android:textSize">@dimen/text_large</item>
         <item name="android:textColor">?attr/primaryColor</item>
         <item name="android:editTextColor">?attr/primaryColor</item>
         <item name="android:textColorHint">?attr/primaryColor</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">@font/jetbrainsmedium</item>
         <item name="android:inputType">textNoSuggestions</item>
         <item name="android:cursorVisible">false</item>
     </style>
@@ -88,7 +105,7 @@
     </style>
 
     <style name="TextLarge" parent="TextDefault">
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">@font/jetbrainsmedium</item>
         <item name="android:textSize">@dimen/text_large</item>
     </style>
 
