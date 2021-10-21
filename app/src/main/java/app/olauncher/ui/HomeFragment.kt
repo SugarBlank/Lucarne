@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.TextView
-import android.appwidget.AppWidgetHost
-import android.appwidget.AppWidgetManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -26,27 +24,9 @@ import app.olauncher.helper.*
 import app.olauncher.listener.OnSwipeTouchListener
 import app.olauncher.listener.ViewSwipeTouchListener
 import kotlinx.android.synthetic.main.fragment_home.*
-import android.appwidget.AppWidgetHostView
-
-import android.appwidget.AppWidgetProviderInfo
-
-import android.content.Intent
-import android.app.Activity
-
-
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
-import android.os.Parcelable
-import androidx.annotation.RequiresApi
-import androidx.customview.widget.ExploreByTouchHelper.HOST_ID
-import java.nio.file.Files.find
-
 
 class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
     private lateinit var prefs: Prefs
-
-    private lateinit var layout: ViewGroup
-
 
     private lateinit var viewModel: MainViewModel
     private lateinit var deviceManager: DevicePolicyManager
@@ -276,12 +256,12 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         viewModel.getAppList()
         try {
             findNavController().navigate(
-                app.olauncher.R.id.action_mainFragment_to_appListFragment,
+                R.id.action_mainFragment_to_appListFragment,
                 bundleOf("flag" to flag, "rename" to rename)
             )
         } catch (e: Exception) {
             findNavController().navigate(
-                app.olauncher.R.id.appListFragment,
+                R.id.appListFragment,
                 bundleOf("flag" to flag, "rename" to rename)
             )
             e.printStackTrace()
@@ -382,7 +362,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             override fun onLongClick() {
                 super.onLongClick()
                 try {
-                    findNavController().navigate(app.olauncher.R.id.action_mainFragment_to_settingsFragment)
+                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
                     viewModel.firstOpen(false)
                 } catch (e: java.lang.Exception) {
                 }

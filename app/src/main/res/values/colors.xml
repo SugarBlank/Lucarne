@@ -3,7 +3,6 @@
     <color name="colorPrimary">@android:color/white</color>
     <color name="colorPrimaryDark">@android:color/darker_gray</color>
     <color name="colorAccent">#FFEB3B</color>
-    <color name="widget_text_panel">#FF374248</color>
     <!--White-->
     <color name="white">#FFFFFF</color>
     <color name="whiteTrans90">#E6FFFFFF</color>

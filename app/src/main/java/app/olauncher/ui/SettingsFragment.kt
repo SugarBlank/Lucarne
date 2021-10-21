@@ -1,12 +1,9 @@
 package app.olauncher.ui
 
 import android.appwidget.*
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -19,33 +16,16 @@ import app.olauncher.data.Constants
 import app.olauncher.data.Prefs
 import app.olauncher.helper.*
 import kotlinx.android.synthetic.main.fragment_settings.*
-import androidx.core.app.ActivityCompat.startActivityForResult
-import android.widget.Toast
-import android.content.ContentValues.TAG
-import android.util.Log
-import android.view.MenuInflater
 import android.view.ViewGroup
-
-import android.view.Menu
-import android.view.MenuItem
-
-
 import kotlinx.android.synthetic.main.activity_main.*
-import android.appwidget.AppWidgetProvider as AppWidgetProvider
 
 
 class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
 
-    private val FLAG_LISTENING = 1
-    private val FLAG_RESUMED = 1 shl 1
-    private val FLAG_LISTEN_IF_RESUMED = 1 shl 2
-    private var mainlayout: ViewGroup? = null
+
     private lateinit var prefs: Prefs
     private lateinit var viewModel: MainViewModel
-    private var mAppWidgetManager: AppWidgetManager? = null
-    private var mAppWidgetHost: AppWidgetHost? = null
-    private var mFlags: Int = FLAG_RESUMED
-    private lateinit var layout: ViewGroup
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,7 +70,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
             R.id.alignmentRight -> viewModel.updateHomeAlignment(Gravity.END)
             R.id.statusBar -> toggleStatusBar()
             R.id.dateTime -> toggleDateTime()
-            R.id.addWidget -> selectWidget()
             R.id.themeColor -> themeColorSelectLayout.visibility = View.VISIBLE
             R.id.themeLight -> updateTheme(Constants.THEME_MODE_LIGHT)
             R.id.themeDark -> updateTheme(Constants.THEME_MODE_DARK)
@@ -144,7 +123,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         themeLight.setOnClickListener(this)
         themeDark.setOnClickListener(this)
         themeBlossom.setOnClickListener(this)
-        addWidget.setOnClickListener(this)
         maxApps0.setOnClickListener(this)
         maxApps1.setOnClickListener(this)
         maxApps2.setOnClickListener(this)
@@ -178,108 +156,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
             populateSwipeApps()
         })
     }
-
-
-    private fun selectWidget() {
-        val appWidgetId = mAppWidgetHost?.allocateAppWidgetId()
-        val pickIntent = Intent(AppWidgetManager.ACTION_APPWIDGET_PICK)
-        pickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-        startActivityForResult(pickIntent, R.id.REQUEST_PICK_APPWIDGET)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == AppCompatActivity.RESULT_OK) {
-            if (requestCode == R.id.REQUEST_PICK_APPWIDGET) {
-                configureWidget(data)
-            } else if (requestCode == R.id.REQUEST_CREATE_APPWIDGET) {
-                createWidget(data!!)
-            }
-        } else if (resultCode == AppCompatActivity.RESULT_CANCELED && data != null) {
-            val appWidgetId = data.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
-            if (appWidgetId != -1) {
-                mAppWidgetHost?.deleteAppWidgetId(appWidgetId)
-            }
-        }
-    }
-
-
-    private fun configureWidget(data: Intent?) {
-        val extras = data!!.extras
-        val appWidgetId = extras!!.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
-
-        val appWidgetInfo = mAppWidgetManager?.getAppWidgetInfo(appWidgetId)
-        if (appWidgetInfo != null) {
-            if (appWidgetInfo.configure != null) {
-                val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)
-                intent.component = appWidgetInfo.configure
-                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-                addEmptyData(intent)
-                startActivityForResult(intent, R.id.REQUEST_CREATE_APPWIDGET)
-            } else {
-                createWidget(data)
-            }
-        }
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.i(
-            TAG,
-            "Menu selected: " + item.title.toString() + " / " + item.itemId.toString() + " / " + R.id.addWidget
-        )
-        when (item.itemId) {
-            R.id.addWidget -> {
-                selectWidget()
-                return true
-            }
-            R.id.removeWidget -> {
-                removeWidgetMenuSelected()
-                return false
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    fun addEmptyData(pickIntent: Intent) {
-        val customInfo = ArrayList<AppWidgetProviderInfo>()
-        pickIntent.putParcelableArrayListExtra(
-            AppWidgetManager.EXTRA_CUSTOM_INFO, customInfo
-        )
-        val customExtras = ArrayList<Bundle>()
-        pickIntent.putParcelableArrayListExtra(
-            AppWidgetManager.EXTRA_CUSTOM_EXTRAS, customExtras
-        )
-    }
-
-    private fun removeWidgetMenuSelected() {
-        val childCount: Int = mainlayout!!.childCount
-        if (childCount > 1) {
-            val view: View = mainlayout!!.getChildAt(childCount - 1)
-            if (view is AppWidgetHostView) {
-                removeWidget(view)
-                val show =
-                    Toast.makeText(activity, R.string.widget_removed_popup, Toast.LENGTH_SHORT).show()
-                return
-            }
-        }
-        Toast.makeText(activity, R.string.no_widgets_popup, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun createWidget(data: Intent) {
-        val extras = data.extras
-        val appWidgetId = extras!!.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
-        val appWidgetInfo = mAppWidgetManager?.getAppWidgetInfo(appWidgetId)
-        val hostView = mAppWidgetHost?.createView(context, appWidgetId, appWidgetInfo)
-
-        hostView?.setAppWidget(appWidgetId, appWidgetInfo)
-
-
-        mainlayout!!.addView(hostView, R.id.dateTimeLayout)
-
-    }
-    fun removeWidget(hostView: AppWidgetHostView) {
-        mAppWidgetHost!!.deleteAppWidgetId(hostView.appWidgetId)
-        mainlayout!!.removeView(hostView)
-    }
-
 
     private fun toggleSwipeLeft() {
         prefs.swipeLeftEnabled = !prefs.swipeLeftEnabled

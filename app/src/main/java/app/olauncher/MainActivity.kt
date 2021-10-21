@@ -1,14 +1,11 @@
 package app.olauncher
 
-import android.appwidget.AppWidgetHost
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.Settings
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -21,11 +18,6 @@ import app.olauncher.helper.showToastLong
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-import android.appwidget.AppWidgetManager
-
-
-
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,10 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
     private lateinit var navController: NavController
     private lateinit var viewModel: MainViewModel
-    var mAppWidgetManager: AppWidgetManager? = null
-    var mAppWidgetHost: AppWidgetHost? = null
 
-    lateinit var mainlayout: ViewGroup
 
     override fun onBackPressed() {
         if (navController.currentDestination?.id == R.id.mainFragment)
@@ -79,7 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         backToHomeScreen()
-        mAppWidgetHost?.stopListening()
         super.onStop()
     }
 

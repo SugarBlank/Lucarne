@@ -73,7 +73,7 @@
         <item name="colorAccent">@color/blossomInverse</item>
 
         <item name="primaryColor">@color/blossomInverse</item>
-        <item name="primaryInverseColor">@color/blossomInverse</item>
+        <item name="primaryInverseColor">@color/blossomInverseTrans50</item>
         <item name="primaryTextShadowColor">@color/blossomInverseTrans50</item>
         <item name="primaryColorTrans50">@color/blossomTrans50</item>
         <item name="primaryColorTrans80">@color/blossomTrans80</item>

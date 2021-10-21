@@ -481,15 +481,6 @@
             android:layout_marginBottom="4dp"
             android:animateLayoutChanges="true">
 
-            <TextView
-                android:id="@id/addWidget"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:paddingVertical="8dp"
-                android:text="@string/widget"
-                android:textColor="?attr/primaryColor" />
         </FrameLayout>
         </LinearLayout>
 

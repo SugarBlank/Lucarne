@@ -20,7 +20,7 @@ class AppDrawerAdapter(
     private val appInfoListener: (AppModel) -> Unit,
     private val appHideListener: (Int, AppModel) -> Unit
 ) : RecyclerView.Adapter<AppDrawerAdapter.ViewHolder>(), Filterable {
-
+    private var appFilter = createAppFilter()
     var appsList: MutableList<AppModel> = mutableListOf()
     var appFilteredList: MutableList<AppModel> = mutableListOf()
 
@@ -50,19 +50,12 @@ class AppDrawerAdapter(
     }
 
     override fun getItemCount(): Int = appFilteredList.size
-
-    // Filter app search results
-    override fun getFilter(): Filter {
+    private fun createAppFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val searchChars = constraint.toString()
-                appFilteredList = (if (searchChars.isEmpty()) appsList
-                else appsList.filter { app ->
-                    appLabelMatches(
-                        app.appLabel,
-                        searchChars
-                    ) or appPackageNameMatches(app.appPackage, searchChars)
-                } as MutableList<AppModel>)
+                val appFilteredList = (if (searchChars.isEmpty()) appsList
+                else appsList.filter { app -> appLabelMatches(app.appLabel, searchChars) } as MutableList<AppModel>)
 
                 val filterResults = FilterResults()
                 filterResults.values = appFilteredList
@@ -76,12 +69,13 @@ class AppDrawerAdapter(
             }
         }
     }
+    override fun getFilter(): Filter = this.appFilter
 
     private fun appLabelMatches(appLabel: String, searchChars: String): Boolean {
         return (appLabel.contains(searchChars, true) or
                 Normalizer.normalize(appLabel, Normalizer.Form.NFD)
-                        .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
-                        .replace(Regex("[-_+,. ]"), "")
+                    .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
+                    .replace(Regex("[-_+,. ]"), "")
                     .contains(searchChars, true))
     }
 
@@ -107,7 +101,13 @@ class AppDrawerAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val appHideButton: TextView = itemView.appHide
 
-        fun bind(flag: Int, appLabelGravity: Int, appModel: AppModel, listener: (AppModel) -> Unit, appInfoListener: (AppModel) -> Unit) =
+        fun bind(
+            flag: Int,
+            appLabelGravity: Int,
+            appModel: AppModel,
+            listener: (AppModel) -> Unit,
+            appInfoListener: (AppModel) -> Unit
+        ) =
             with(itemView) {
                 appHideLayout.visibility = View.GONE
                 appHideButton.text = (if (flag == Constants.FLAG_HIDDEN_APPS) "SHOW" else "HIDE")
